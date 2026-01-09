@@ -1,6 +1,3 @@
-# Passwordgenerator by DGKN
-Local GUI-based password generator using cryptographically secure randomness, entropy analysis, and realistic online/offline cracking estimates.
-
 # PWGen GUI — Secure Password Generator
 
 ![License](https://img.shields.io/badge/license-MIT-green)
