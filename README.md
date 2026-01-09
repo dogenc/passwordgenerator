@@ -2,9 +2,8 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Platform](https://img.shields.io/badge/platform-cross--platform%20(source)-success)
-![Platform](https://img.shields.io/badge/platform-Windows%20(binary)-lightgrey)
-
+![Source](https://img.shields.io/badge/source-cross--platform-success)
+![Binary](https://img.shields.io/badge/binary-Windows-lightgrey)
 
 
 A local, GUI-based password generator providing cryptographically secure randomness,
