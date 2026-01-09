@@ -31,10 +31,15 @@ entropy analysis, and realistic online/offline cracking time estimates.
 - **Prebuilt binaries (`.exe`)**: Windows only
 
 
-## Run
+## Download
+
+### Windows (recommended)
+Download the prebuilt executable from the **GitHub Releases** page.
+
+### From source
 ```bash
 python pwgen_gui.py
-or use the exe.-file
+
 
  ## License
 MIT License © Dogukan S.
