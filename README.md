@@ -4,8 +4,7 @@
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-cross--platform%20(source)-success)
 ![Platform](https://img.shields.io/badge/platform-Windows%20(binary)-lightgrey)
-![Offline](https://img.shields.io/badge/network-offline-important)
-![Privacy](https://img.shields.io/badge/privacy-no%20telemetry-success)
+
 
 
 A local, GUI-based password generator providing cryptographically secure randomness,
