@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Platform](https://img.shields.io/badge/platform-Windows-lightgrey)
+![Source](https://img.shields.io/badge/source-cross--platform-success)
 ![Offline](https://img.shields.io/badge/network-offline-important)
 ![Privacy](https://img.shields.io/badge/privacy-no%20telemetry-success)
 
