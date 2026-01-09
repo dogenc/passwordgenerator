@@ -3,6 +3,13 @@ Local GUI-based password generator using cryptographically secure randomness, en
 
 # PWGen GUI — Secure Password Generator
 
+![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey)
+![Offline](https://img.shields.io/badge/network-offline-important)
+![Privacy](https://img.shields.io/badge/privacy-no%20telemetry-success)
+
+
 A local, GUI-based password generator providing cryptographically secure randomness,
 entropy analysis, and realistic online/offline cracking time estimates.
 
