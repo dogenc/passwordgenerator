@@ -24,10 +24,16 @@ entropy analysis, and realistic online/offline cracking time estimates.
 - Python 3.10+
 - No external dependencies
 
+## Platform Support
+
+- **Source (`.py`)**: Windows, Linux, macOS (Python 3.10+)
+- **Prebuilt binaries (`.exe`)**: Windows only
+
+
 ## Run
 ```bash
 python pwgen_gui.py
 or use the exe.-file
 
-## License
+ ## License
 MIT License © Dogukan S.
