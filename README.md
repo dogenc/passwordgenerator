@@ -6,8 +6,8 @@
 ![Binary](https://img.shields.io/badge/binary-Windows-lightgrey)
 
 
-Local GUI-based password generator with cryptographically secure randomness, entropy analysis, and 
-realistic online/offline cracking estimates.
+Designed to visualize password strength under realistic attacker models.
+
 
 
 ![Screenshot](screenshots/pwgen_gui.png)
