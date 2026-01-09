@@ -9,6 +9,8 @@
 A local, GUI-based password generator providing cryptographically secure randomness,
 entropy analysis, and realistic online/offline cracking time estimates.
 
+![Screenshot](screenshots/pwgen_gui.png)
+
 ## Features
 - Cryptographically secure password generation (`secrets`)
 - Configurable length (8–256 characters)
