@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # © Dogukan S.
 
-import hashlib
 import math
 import secrets
 import string
@@ -12,10 +11,6 @@ from tkinter import ttk, messagebox
 
 AMBIGUOUS = set("O0oIl1|`'\"{}[]()<>,")
 DEFAULT_INCLUDE_AMBIGUOUS = True  # kannst du später im UI als Option erweitern
-
-
-def sha256_hex(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def strength_label(entropy: float) -> str:
@@ -397,8 +392,6 @@ class App(tk.Tk):
             self.text.insert(tk.END, f"    ENTROPIE : {ent:.1f} Bit\n")
             self.text.insert(tk.END, f"    STÄRKE   : ")
             self.text.insert(tk.END, f"{strength}\n", (strength,))
-            self.text.insert(tk.END, f"    SHA-256  : {sha256_hex(pw)}\n")
-
             self.text.tag_config(strength, foreground=color, font=("Segoe UI", 11, "bold"))
 
             self.text.insert(tk.END, "    Knackzeit (Ø, grob):\n")
