@@ -1,0 +1,11 @@
+PWGen 2.0 · DGKN@Labs
+=====================
+
+Start: PWGen-DGKN-Labs.exe doppelklicken. Keine Installation, kein Netzwerk.
+
+Die Datei ist nicht digital signiert. Windows SmartScreen kann beim ersten
+Start warnen ("Weitere Informationen" -> "Trotzdem ausführen").
+
+Prüfsumme (SHA-256) siehe SHA256SUMS.txt.
+Selbsttest: PWGen-DGKN-Labs.exe --self-test
+Lizenz: MIT · © Dogukan S. · DGKN@Labs
