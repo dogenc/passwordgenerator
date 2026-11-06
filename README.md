@@ -1,46 +1,105 @@
-# PWGen GUI — Secure Password Generator
+# PWGen · DGKN@Labs
 
-![License](https://img.shields.io/badge/license-MIT-green)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Source](https://img.shields.io/badge/source-cross--platform-success)
-![Binary](https://img.shields.io/badge/binary-Windows-lightgrey)
+Offline-Passwortgenerator mit exakter Entropieanzeige, transparentem
+Angreifermodell und integriertem Prüfstand. Python 3.10+, Tkinter,
+**keine Laufzeitabhängigkeiten**, kein Netzwerkzugriff.
 
+![Generator](screenshots/ui_generator.png)
 
-Designed to visualize password strength under realistic attacker models.
+![Prüfstand](screenshots/ui_audit.png)
 
+## Sicherheitsmodell
 
+- **Zufall:** `secrets.SystemRandom` — der Kryptografie-Zufallsgenerator des
+  Betriebssystems, nicht `random`.
+- **Klassenpflicht:** Jede aktive Zeichenklasse kommt garantiert mindestens
+  einmal vor. Die Auswahl verwerfen-und-neu-ziehen erhält eine Gleichverteilung
+  über genau die Menge der zulässigen Passwörter.
+- **Exakte Entropie:** Angezeigt wird `log2` des tatsächlich erzeugbaren
+  Schlüsselraums (Inklusion-Exklusion über die Zeichenklassen), nicht die
+  optimistische Näherung `Länge × log2(Alphabet)`.
+- **Transparentes Angreifermodell:** Mittlere Trefferzeit `2^(H−1) / Rate`.
+  Die Raten (10/s bis 10¹⁵/s) stehen in der Oberfläche und in der Methodik.
+- **Keine Spuren:** Der Laufzeitcode öffnet keine Dateien, protokolliert keine
+  Passwörter und importiert keine Netzwerkmodule. Das prüft
+  `tests/test_static.py` per AST-Analyse.
+- **Zwischenablage:** Löscht den kopierten Wert nach 15/30/60 Sekunden — aber
+  nur, wenn noch genau dieser Wert enthalten ist. Beim Schließen wird
+  ebenfalls aufgeräumt.
+- **Sichtschutz:** Passwörter lassen sich auf Anfang und Ende maskieren.
 
-![Screenshot](screenshots/pwgen_gui.png)
+**Grenzen, offen benannt:** Python kann Strings nicht zuverlässig
+überschreiben; Speicher-Hygiene ist damit eine Eigenschaft der Laufzeit, keine
+Zusage dieses Programms. Der Prüfstand ist eine Heuristik und erkennt keine
+Breach-Daten, Wiederverwendung oder Phishing. Die Windows-Binärdatei ist nicht
+signiert. „Militärisch“ ist kein Sicherheitsmerkmal — die Stärke kommt aus
+CSPRNG, Policy und Entropie, nicht aus einem Label.
 
-## Features
-- Cryptographically secure password generation (`secrets`)
-- Configurable length (8–256 characters)
-- Optional symbols and ambiguous characters
-- Entropy calculation and strength rating
-- SHA-256 hash display (informational)
-- Estimated cracking times for multiple attacker models
-- Password strength checker for existing passwords
-- Fully offline, no network access
+## Funktionen
 
-## Requirements
-- Python 3.10+
-- No external dependencies
+- Länge 8–128 in der Oberfläche (Kern: 8–256), Schnellwahl 16/24/32/48
+- Vier Zeichenklassen einzeln schaltbar, ambige Zeichen ausschließbar
+- 1, 3 oder 5 Passwörter pro Durchlauf, einzeln oder gesammelt kopierbar
+- Exakte Entropie, Bewertung und fünf Angreifermodelle pro Ausgabe
+- Prüfstand mit Zeichenvorrat, Mustererkennung (Sequenzen, Wiederholungen,
+  Tastaturreihen, Jahreszahlen, Standardpasswörter) und Richtlinien-Check
+- Vollständig per Tastatur bedienbar: `Strg+G`, `Strg+C`,
+  `Strg+Umschalt+C`, `Strg+H`, `F1`
+- Glass-Oberfläche ohne externe UI-Abhängigkeiten; dunkle Windows-Titelleiste
 
-## Platform Support
+## Starten
 
-- **Source (`.py`)**: Windows, Linux, macOS (Python 3.10+)
-- **Prebuilt binaries (`.exe`)**: Windows only
-
-
-## Download
-
-### Windows (recommended)
-Download the prebuilt executable from the **GitHub Releases** page.
-
-### From source
 ```bash
 python pwgen_gui.py
+```
 
+Voraussetzungen: Python 3.10+ mit Tkinter. Unter Debian/Ubuntu:
+`sudo apt install python3-tk`. Es sind keine `pip`-Pakete nötig.
 
- ## License
-MIT License © Dogukan S.
+### Windows-Binary
+
+Im Ordner `Release/` liegt `PWGen-DGKN-Labs.exe` (Single-File, ohne Installer).
+Die Datei ist nicht signiert; Windows SmartScreen kann beim ersten Start
+warnen. Prüfsumme: siehe `Release/SHA256SUMS.txt`.
+
+## Tests
+
+```bash
+python -m unittest discover -s tests -v   # Kern, UI-Smoke, Static Checks
+python pwgen_gui.py --self-test           # Exitcode 0 = Kern in Ordnung
+python pwgen_gui.py --smoke-ui            # Oberfläche aufbauen und beenden
+```
+
+Headless unter Linux: `xvfb-run -a python -m unittest discover -s tests -v`.
+Die UI-Tests überspringen sich automatisch, wenn kein Display verfügbar ist.
+
+## Windows-Build
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build_windows.ps1
+```
+
+Ergebnis: `Release/PWGen-DGKN-Labs.exe` plus `Release/SHA256SUMS.txt`.
+Der Build nutzt PyInstaller (nur Build-Zeit-Abhängigkeit) und das Icon aus
+`assets/`. Ein Tag `v2.0.0` löst zusätzlich
+`.github/workflows/release.yml` aus, das die EXE baut und an das
+GitHub-Release anhängt.
+
+## Architektur
+
+| Datei | Zweck |
+| --- | --- |
+| `dgknlabs/core.py` | Policy, CSPRNG-Erzeugung, exakte Entropie, Angreifermodelle, Audit |
+| `dgknlabs/wordlist.py` | Kleine kuratierte Liste häufiger Passwörter (Mustererkennung) |
+| `dgknlabs/theme.py` | Design-Tokens, Farbmischung, Schriftauswahl |
+| `dgknlabs/widgets.py` | Canvas-Widget-Kit: Glass-Panels, Buttons, Slider, Toggles |
+| `dgknlabs/app.py` | Fenster, Layout, Interaktion, Zwischenablage-Wächter, Methodik |
+| `pwgen_gui.py` | Einstiegspunkt (Abwärtskompatibilität) |
+| `pwgen.spec`, `packaging/` | PyInstaller-Recipe und Windows-Versionsressource |
+| `tests/` | Kern-Tests, GUI-Smoke-Tests, statische Garantien |
+
+Der Krypto-Kern importiert kein Tkinter und ist dadurch ohne Display prüfbar.
+
+## Lizenz
+
+MIT · © Dogukan S. · DGKN@Labs
