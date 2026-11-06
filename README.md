@@ -8,6 +8,17 @@ Angreifermodell und integriertem Prüfstand. Python 3.10+, Tkinter,
 
 ![Prüfstand](screenshots/ui_audit.png)
 
+## Projektgeschichte
+
+Dieses Projekt ist historisch gewachsen. Der ursprüngliche Passwortgenerator
+entstand vor einiger Zeit mit sehr wenig Einsatz von KI-Unterstützung; der
+Code war entsprechend pragmatisch und als einzelne GUI-Datei aufgebaut. Für
+Version 2.0 wurde die Codebasis grundlegend überarbeitet: klarer Krypto-Kern,
+testbare Oberfläche, reproduzierbarer Windows-Build und eine Dokumentation,
+die auch die Grenzen offen benennt. Die ursprüngliche Idee und der
+Funktionsumfang bleiben erhalten — die Umsetzung wurde an den heutigen Stand
+angepasst.
+
 ## Sicherheitsmodell
 
 - **Zufall:** `secrets.SystemRandom` — der Kryptografie-Zufallsgenerator des
@@ -60,7 +71,9 @@ Voraussetzungen: Python 3.10+ mit Tkinter. Unter Debian/Ubuntu:
 
 Im Ordner `Release/` liegt `PWGen-DGKN-Labs.exe` (Single-File, ohne Installer).
 Die Datei ist nicht signiert; Windows SmartScreen kann beim ersten Start
-warnen. Prüfsumme: siehe `Release/SHA256SUMS.txt`.
+warnen. Prüfsumme: siehe `Release/SHA256SUMS.txt`. Die GitHub-Release-Seite
+enthält einen separat in der CI gebauten Windows-Build; für diesen gilt die
+dort beigefügte `SHA256SUMS.txt`.
 
 ## Tests
 
